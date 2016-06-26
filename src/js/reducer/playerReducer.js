@@ -1,17 +1,8 @@
+
 import util from '../util/util';
 
 const {getEntityNextMove} = util.math;
-
-const {MOVE_SPEED, KEYS} = util.CONST;
-
-const SHOOTING = KEYS.SPACE;
-
-const DIRECTIONS = {
-    [KEYS.UP]: 'up',
-    [KEYS.DOWN]: 'down',
-    [KEYS.RIGHT]: 'turnRight',
-    [KEYS.LEFT]: 'turnLeft'
-};
+const {getStateAppliedActionByKey} = util.stateUtil;
 
 const playerInitialState = {
     pos: {
@@ -31,30 +22,6 @@ const playerInitialState = {
     radius: 10,
     dir: 0,
     color: '#00f'
-};
-
-const getStateAppliedActionByKey = (state, key, enable) => {
-    let {move} = state;
-    let direction = DIRECTIONS[key];
-
-    if (direction) {
-        return {
-            ...state,
-            move: {
-                ...move,
-                [direction]: enable ? MOVE_SPEED : 0
-            }
-        }
-    }
-
-    if (key === SHOOTING) {
-        return {
-            ...state,
-            shooting: enable
-        }
-    }
-
-    return state;
 };
 
 export default function playerReducer(state = playerInitialState, action) {

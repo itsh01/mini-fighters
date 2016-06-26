@@ -24,17 +24,13 @@ export default function bulletsReducer(state = bulletsInitialState, action) {
         case 'CREATE_BULLET':
         {
             let {dir, pos} = action.payload;
-
-            let id = _.uniqueId('ball');
-            let newBullet = {id, dir, pos};
+            let newBullet = {dir, pos, id: _.uniqueId('bullet')};
 
             return state.concat(newBullet);
         }
         case 'BULLET_HIT':
         {
-            let {id} = action.payload;
-
-            return _.reject(state, {id});
+            return _.reject(state, {id: action.payload.id});
         }
     }
     return state;

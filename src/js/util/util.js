@@ -10,8 +10,16 @@ const KEYS = {
     SPACE: 32
 };
 
-const MOVE_SPEED = 3;
+const DIRECTIONS = {
+    [KEYS.UP]: 'up',
+    [KEYS.DOWN]: 'down',
+    [KEYS.RIGHT]: 'turnRight',
+    [KEYS.LEFT]: 'turnLeft'
+};
 
+const SHOOTING = KEYS.SPACE;
+
+const MOVE_SPEED = 3;
 
 const isHit = (rect1, rect2) => {
     let {x, y, width: w, height: h} = rect1,
@@ -61,16 +69,44 @@ const getEntityNextMove = state => {
     };
 };
 
+const getStateAppliedActionByKey = (state, key, enable) => {
+    let {move} = state;
+    let direction = DIRECTIONS[key];
+
+    if (direction) {
+        return {
+            ...state,
+            move: {
+                ...move,
+                [direction]: enable ? MOVE_SPEED : 0
+            }
+        }
+    }
+
+    if (key === SHOOTING) {
+        return {
+            ...state,
+            shooting: enable
+        }
+    }
+
+    return state;
+};
+
 const util = {
     CONST: {
         KEYS,
-        MOVE_SPEED
+        MOVE_SPEED,
+        DIRECTIONS
     },
     math: {
         positionAsRect,
         isHit,
         getBulletStartingPoint,
         getEntityNextMove
+    },
+    stateUtil: {
+        getStateAppliedActionByKey
     }
 };
 

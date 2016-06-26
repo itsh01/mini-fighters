@@ -10,7 +10,7 @@ const rotate = (ctx, rad, x, y, func) => {
     ctx.restore();
 };
 
-const drawPlayer = (ctx, player) => {
+const drawUnit = (ctx, player) => {
     let {pos} = player;
 
     rotate(ctx, player.dir, pos.x, pos.y, () => {
@@ -18,24 +18,6 @@ const drawPlayer = (ctx, player) => {
         ctx.fillStyle = player.color;
         ctx.beginPath();
         ctx.arc(0, 0, player.radius, 0, 2 * Math.PI);
-        ctx.fill();
-
-        // gun
-        ctx.fillRect(10, -20, 10, 30);
-
-        // hand
-        ctx.fillRect(-20, -8, 10, 15);
-    });
-};
-
-const drawEnemy = (ctx, enemy) => {
-    let {pos} = enemy;
-
-    rotate(ctx, enemy.dir, pos.x, pos.y, () => {
-        // head
-        ctx.fillStyle = enemy.color;
-        ctx.beginPath();
-        ctx.arc(0, 0, enemy.radius, 0, 2 * Math.PI);
         ctx.fill();
 
         // gun
@@ -80,8 +62,8 @@ export default function draw(canvas, state) {
     let ctx = canvas.getContext('2d');
 
     drawBackground(ctx, canvas);
-    drawPlayer(ctx, player);
-    drawEnemy(ctx, enemy);
+    drawUnit(ctx, player);
+    drawUnit(ctx, enemy);
     drawBullets(ctx, bullets);
     drawWalls(ctx, walls);
     drawScore(ctx, score);
