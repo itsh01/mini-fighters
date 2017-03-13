@@ -4,6 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "build": "webpack",
+    "start": "webpack-dev-server --debug --port 9876",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
